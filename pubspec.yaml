@@ -11,12 +11,15 @@ dependencies:
 
   di_visualizer_annotation: ^0.0.1
 
-dev_dependencies:
   j_linter: ^0.0.6
   analyzer: ^5.0.0
   build: ^2.3.0
   build_runner: ^2.1.11
   source_gen: ^1.2.3
+  path: ^1.8.2
+  glob: ^2.1.0
+  file: ^6.1.4
+    
 
 executables:
   di_visualizer: di_visualizer_cli
