@@ -36,8 +36,10 @@ RepoUtil -up-> Repository2
 
   ![Screenshot](images/example.png)
 
-# install it and run:
+# run:
+
+install it and run from root of your app:
 
 ```bash
-di_visualizer di --directory example --output uml.txt
+di_visualizer di --directory example/ --output uml.txt
 ```
