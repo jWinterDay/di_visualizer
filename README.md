@@ -35,3 +35,9 @@ RepoUtil -up-> Repository2
 ```
 
   ![Screenshot](images/example.png)
+
+# install it and run:
+
+```bash
+di_visualizer di --directory example --output uml.txt
+```
