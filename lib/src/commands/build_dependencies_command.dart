@@ -53,7 +53,10 @@ class BuildDependenciesCommand extends Command<void> {
     // source directory
     final String? dir = argResults?['directory'] as String?;
     if (dir == null) {
-      throw UsageException('Source directory path doesn"t exist', 'Use correct source directory file path');
+      throw UsageException(
+        'Source directory path doesn"t exist',
+        'Use correct source directory file path',
+      );
     }
     final String rootFolder = Directory.current.path;
     final String absDirPath = p.normalize(p.join(rootFolder, dir));
@@ -106,9 +109,8 @@ class BuildDependenciesCommand extends Command<void> {
         final Iterable<List<ClassElement>> classList = library.units.map((CompilationUnitElement e) => e.classes);
 
         for (final List<ClassElement> cl in classList) {
-          final List<DartType> fieldsInfoList = <DartType>[];
-
           for (final ClassElement c in cl) {
+            final Set<DartType> fieldsInfoList = <DartType>{};
             final String serviceName = c.name;
 
             final DartObject? serviceAnnotation = const TypeChecker.fromRuntime(DIService).firstAnnotationOf(c);
@@ -132,6 +134,8 @@ class BuildDependenciesCommand extends Command<void> {
 
               serviceInfo[serviceName] = fieldsInfoList;
             }
+
+            // fieldsInfoList.clear();
           }
         }
       }

@@ -32,6 +32,7 @@ class RepoUtil {}
 class Repository1 {
   Repository1(this.repoUtil);
 
+  @diInject
   final RepoUtil repoUtil;
 }
 
@@ -39,5 +40,6 @@ class Repository1 {
 class Repository2 {
   Repository2(this.repoUtil);
 
+  @diInject
   final RepoUtil repoUtil;
 }
