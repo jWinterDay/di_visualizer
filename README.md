@@ -36,3 +36,5 @@ install it and run from root of your app:
 ```bash
 di_visualizer di --directory example/ --output uml.txt
 ```
+
+and use any editors to see your uml, for example: [https://www.planttext.com/](https://www.planttext.com/)
