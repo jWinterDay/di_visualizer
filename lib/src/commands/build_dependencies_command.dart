@@ -117,15 +117,13 @@ class BuildDependenciesCommand extends Command<void> {
 
             if (serviceAnnotation != null) {
               for (final FieldElement f in c.fields) {
-                final DartType fType = f.type;
-                fieldsInfoList.add(fType);
-                // final DartObject? injectAnnotation = const TypeChecker.fromRuntime(DIInject).firstAnnotationOf(f);
+                final DartObject? injectAnnotation = const TypeChecker.fromRuntime(DIInject).firstAnnotationOf(f);
 
-                // if (injectAnnotation != null) {
-                //   final DartType fType = f.type;
+                if (injectAnnotation != null) {
+                  final DartType fType = f.type;
 
-                //   fieldsInfoList.add(fType);
-                // }
+                  fieldsInfoList.add(fType);
+                }
               }
 
               final Iterable<String> namedFieldList = fieldsInfoList.map((DartType e) {
