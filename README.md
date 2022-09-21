@@ -1,10 +1,9 @@
-# di visualizer cli
+# DI visualizer cli
 
 ## info
-tool for visualization your di dependencies
+tool for visualization your DI dependencies
 
-use `@diService` annotation for your class
-and `@diInject` for fields in your service
+use `@diService` annotation for your service class injected into DI
 
 and get uml diagram:
 

@@ -1,3 +1,5 @@
+## 0.1.0
+    removed diInject annotation
 ## 0.0.4
     update readme
 ## 0.0.3
