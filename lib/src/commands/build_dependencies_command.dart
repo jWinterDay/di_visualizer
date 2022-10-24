@@ -116,14 +116,19 @@ class BuildDependenciesCommand extends Command<void> {
             final DartObject? serviceAnnotation = const TypeChecker.fromRuntime(DIService).firstAnnotationOf(c);
 
             if (serviceAnnotation != null) {
-              for (final FieldElement f in c.fields) {
-                final DartObject? injectAnnotation = const TypeChecker.fromRuntime(DIInject).firstAnnotationOf(f);
+              final Iterable<ConstructorElement> cnstrList = c.constructors.where((ConstructorElement cnsrt) {
+                return cnsrt.isPublic;
+              });
 
-                if (injectAnnotation != null) {
-                  final DartType fType = f.type;
+              if (cnstrList.length != 1) {
+                throw UsageException('Service must contain only one class', 'Service must contain only one class');
+              }
 
-                  fieldsInfoList.add(fType);
-                }
+              final ConstructorElement singleConstr = cnstrList.first;
+
+              for (final ParameterElement param in singleConstr.parameters) {
+                fieldsInfoList.add(param.type);
+                // print('${singleConstr.displayName}   ${param.type.getDisplayString(withNullability: false)}');
               }
 
               final Iterable<String> namedFieldList = fieldsInfoList.map((DartType e) {
