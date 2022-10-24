@@ -1,3 +1,5 @@
+## 0.2.1
+    now you don't need @diInject annotation. Analyzer will get info(params) from constructors
 ## 0.1.1
     revert
 ## 0.0.4
