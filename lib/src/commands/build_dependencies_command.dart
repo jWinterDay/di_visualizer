@@ -9,9 +9,16 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:args/command_runner.dart';
 import 'package:di_visualizer/di_visualizer_cli.dart';
+import 'package:di_visualizer/src/commands/html_generator.dart';
 import 'package:di_visualizer_annotation/di_visualizer_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen/source_gen.dart';
+
+import 'uml_generator.dart';
+
+const String _kUmlFormat = 'uml';
+const String _kHtmlFormat = 'html';
+const Set<String> _kFormatList = <String>{_kUmlFormat, _kHtmlFormat};
 
 class BuildDependenciesCommand extends Command<void> {
   BuildDependenciesCommand() {
@@ -25,6 +32,13 @@ class BuildDependenciesCommand extends Command<void> {
         'output',
         abbr: 'o',
         help: 'output directory path',
+      )
+      ..addOption(
+        'format',
+        abbr: 'f',
+        help: 'output file format',
+        allowed: _kFormatList,
+        defaultsTo: _kUmlFormat,
       );
   }
 
@@ -78,11 +92,34 @@ class BuildDependenciesCommand extends Command<void> {
       outputFile.createSync();
     }
 
-    Utils.printCyan('input dir: $absDirPath, output file: $absOutputPath');
+    // format
+    final String format = argResults?['format'] as String;
+
+    Utils.printCyan('$format. input dir: $absDirPath, output file: $absOutputPath');
 
     // generate and write to file
     final Map<String, Iterable<DartType>> genMap = await _generate(filePaths: filePaths);
-    final String text = _generateText(genMap);
+
+    late String text;
+
+    switch (format) {
+      case _kUmlFormat:
+        text = generateUmlFile(genMap);
+        break;
+
+      case _kHtmlFormat:
+        text = generateHtmlFile(genMap);
+        break;
+
+      default:
+        final String fmts = _kFormatList.join('; ');
+
+        throw UsageException(
+          'Unknown output format',
+          'Use one of those formats: $fmts',
+        );
+    }
+
     outputFile.writeAsStringSync(text);
   }
 
@@ -145,60 +182,5 @@ class BuildDependenciesCommand extends Command<void> {
     }
 
     return serviceInfo;
-  }
-
-  ///  @startuml
-  ///
-  ///  node DbUtil
-  ///  node DbService
-  ///
-  ///  node AppBloc
-  ///  node HomeBloc
-  ///  node LoginBloc
-  ///  node NavBloc
-  ///  node RestService
-  ///
-  ///  node BiometricAuthService
-  ///
-  ///  DbService -up->DbUtil
-  ///
-  ///  DbUtil -up->AppBloc
-  ///
-  ///  BiometricAuthService -up->AppBloc
-  ///
-  ///  AppBloc -up-> HomeBloc
-  ///  AppBloc -up-> LoginBloc
-  ///  AppBloc -up-> NavBloc
-  ///  BiometricAuthService -up->NavBloc
-  ///
-  ///  @enduml
-  String _generateText(Map<String, Iterable<DartType>> serviceInfo) {
-    final StringBuffer sb = StringBuffer();
-
-    sb.writeln('@startuml\n');
-
-    // nodes
-    for (final String serviceName in serviceInfo.keys) {
-      sb.writeln('node $serviceName');
-    }
-
-    // relations
-    serviceInfo.forEach((String serviceName, Iterable<DartType> fieldList) {
-      final Iterable<String> namedFieldList = fieldList.map((DartType e) => e.getDisplayString(withNullability: false));
-
-      for (final String field in namedFieldList) {
-        sb.writeln('$field -up-> $serviceName');
-      }
-
-      // final String fmt = namedFieldList.join(';');
-
-      // sb
-      //   ..write(serviceName)
-      //   ..writeln('($fmt)');
-    });
-
-    sb.writeln('\n@enduml');
-
-    return sb.toString();
   }
 }

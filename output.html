@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto;
+      background-color: #1a84db;
+      padding: 1px;
+      margin-bottom: 16px;
+    }
+
+    .grid-container>div {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 4px 0px;
+      font-size: 23px;
+      margin: 1px;
+    }
+
+    .Util {
+      grid-row-start: 1;
+      grid-row-end: 4;
+    }
+
+    .Repository1 {
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .Repository2 {
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .RepoUtil {
+      grid-row-start: 1;
+      grid-row-end: 4;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>DI visualizer</h1>
+
+  <div class="grid-container">
+    <div class="Util">Util</div>
+    <div>Service1</div>
+    <div>Service2</div>
+  </div>
+
+  <div class="grid-container">
+    <div class="Repository1">Repository1</div>
+    <div>Service1</div>
+  </div>
+
+  <div class="grid-container">
+    <div class="Repository2">Repository2</div>
+    <div>Service2</div>
+  </div>
+
+  <div class="grid-container">
+    <div class="RepoUtil">RepoUtil</div>
+    <div>Repository1</div>
+    <div>Repository2</div>
+  </div>
+
+
+</body>
+
+</html>
