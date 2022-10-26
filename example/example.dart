@@ -29,6 +29,9 @@ class Util {}
 class RepoUtil {}
 
 @diService
+class AbandonedService {}
+
+@diService
 class Repository1 {
   Repository1(this.repoUtil);
 

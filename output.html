@@ -3,6 +3,10 @@
 
 <head>
   <style>
+    .abandoned {
+      background-color: rgba(141, 139, 139, 0.8) !important;
+    }
+
     .grid-container {
       display: grid;
       grid-template-columns: auto auto;
@@ -24,6 +28,11 @@
       grid-row-end: 4;
     }
 
+    .RepoUtil {
+      grid-row-start: 1;
+      grid-row-end: 4;
+    }
+
     .Repository1 {
       grid-row-start: 1;
       grid-row-end: 3;
@@ -33,11 +42,6 @@
       grid-row-start: 1;
       grid-row-end: 3;
     }
-
-    .RepoUtil {
-      grid-row-start: 1;
-      grid-row-end: 4;
-    }
   </style>
 </head>
 
@@ -46,24 +50,29 @@
 
   <div class="grid-container">
     <div class="Util">Util</div>
-    <div>Service1</div>
-    <div>Service2</div>
-  </div>
-
-  <div class="grid-container">
-    <div class="Repository1">Repository1</div>
-    <div>Service1</div>
-  </div>
-
-  <div class="grid-container">
-    <div class="Repository2">Repository2</div>
-    <div>Service2</div>
+    <div class="">Service1</div>
+    <div class="">Service2</div>
   </div>
 
   <div class="grid-container">
     <div class="RepoUtil">RepoUtil</div>
-    <div>Repository1</div>
-    <div>Repository2</div>
+    <div class="">Repository1</div>
+    <div class="">Repository2</div>
+  </div>
+
+  <div class="grid-container">
+    <div class="abandoned">AbandonedService</div>
+    <div class="abandoned">-</div>
+  </div>
+
+  <div class="grid-container">
+    <div class="Repository1">Repository1</div>
+    <div class="">Service1</div>
+  </div>
+
+  <div class="grid-container">
+    <div class="Repository2">Repository2</div>
+    <div class="">Service2</div>
   </div>
 
 

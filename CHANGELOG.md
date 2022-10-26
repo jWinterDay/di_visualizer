@@ -1,3 +1,5 @@
+## 0.3.2
+    html fix
 ## 0.3.1
     added html output format
 ## 0.2.1

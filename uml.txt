@@ -6,6 +6,7 @@ node Util
 node RepoUtil
 node Repository1
 node Repository2
+node AbandonedService
 Util -up-> Service1
 Repository1 -up-> Service1
 Util -up-> Service2
